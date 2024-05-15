@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore")
 data = pkl.load(open(f'{data_path}', 'rb'))
 X = data[0] #cell-level PRSs
 y = data[1] #labels
-edge= data[3] #cell-cell similarity network
+edge= data[2] #cell-cell similarity network
 
 means = np.nanmean(X, 0, keepdims=True)
 stds = np.nanstd(X, 0, keepdims=True)
