@@ -13,16 +13,16 @@ We introduce scPRS, an interpretable geometric deep learning model that contruct
 </p>
 
 ## Dependencies 
-- pytorch
-- pytorch_geometric
-- pandas
-- sklearn
-- argparse
-- networkx
-- numpy
-- anndata
-- scanpy
-- plink
+- pytorch v1.9.0
+- pytorch_geometric v1.7.2
+- pandas v2.0.0
+- sklearn v1.2.2
+- argparse v1.1
+- networkx v2.5
+- numpy v1.21.2
+- anndata v0.9.1
+- scanpy v1.9.3
+- plink v2.0
 
 ## Usage
 1. Conduct quality controls for your discovery and target cohorts. We recommend to follow the PRS [tutorial](https://choishingwan.github.io/PRS-Tutorial/).
