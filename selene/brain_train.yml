@@ -1,0 +1,44 @@
+---
+ops: [train, evaluate]
+model: {
+    path: /path_to_model_file/beluga.py, 
+    class: Beluga,
+    class_args: {
+        sequence_length: 2000,
+        n_genomic_features: 8,
+    },
+    non_strand_specific: mean
+}
+sampler: !obj:selene_sdk.samplers.IntervalsSampler {
+    reference_sequence: !obj:selene_sdk.sequences.Genome {
+        input_path: /path_to_ref_genome/hg38.fa,
+        blacklist_regions: hg38
+    },
+    features: !obj:selene_sdk.utils.load_features_list {
+        input_path: /path_to_feature_list/features.txt
+    },
+    target_path: /path_to_target/allpeaks.sorted.bed.gz,
+    intervals_path: /path_to_intervals/allpeaks.sorted.merged.bed,
+    test_holdout: [chr8, chr9],
+    validation_holdout: [chr6, chr7],
+    seed: 127,
+    sequence_length: 2000,
+    center_bin_to_predict: 200,
+    feature_thresholds: 0.5,
+    mode: train,
+    save_datasets: [train, test, validate]
+}
+train_model: !obj:selene_sdk.TrainModel {
+    batch_size: 64,
+    max_steps: 100000,
+    report_stats_every_n_steps: 100,
+    n_validation_samples: 6400,
+    n_test_samples: 32000,
+    use_cuda: True,
+    data_parallel: True,
+    logging_verbosity: 2
+}
+output_dir: /path_to_output
+random_seed: 1447
+create_subdirectory: False
+...

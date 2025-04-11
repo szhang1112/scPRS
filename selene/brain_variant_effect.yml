@@ -1,0 +1,32 @@
+---
+ops: [analyze]
+model: {
+    path: /path_to_model_file/beluga.py, 
+    class: Beluga,
+    class_args: {
+        sequence_length: 2000,
+        n_genomic_features: 8,
+    },
+    non_strand_specific: mean
+}
+analyze_sequences: !obj:selene_sdk.predict.AnalyzeSequences {
+    sequence_length: 2000,
+    batch_size: 64,
+    use_cuda: True,
+    trained_model_path: /path_to_best_model/best_model.pth.tar,
+    reference_sequence: !obj:selene_sdk.sequences.Genome {
+        input_path: /path_to_ref_genome/hg38.fa
+    },
+    features: !obj:selene_sdk.utils.load_features_list {
+        input_path: /path_to_feature_list/features.txt
+    },
+}
+variant_effect_prediction: {
+    vcf_files: [
+        /path_to_vcf/test.vcf
+    ], 
+    save_data: [diffs],
+    output_dir: /path_to_output
+}
+random_seed: 123
+...
